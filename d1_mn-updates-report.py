@@ -3,10 +3,11 @@ mn-updates-report.py
 
 Author: Monica Ihli
 Date: 2/6/2018
-Dependencies: Tested with python-redmine v 2.0.2
+Dependencies: Tested with Python 3.3.5 and python-redmine v 2.0.2
 Additional Requirements: A wiki page must have been created for pushing the report information to.
+ API Key must be saved to 'api-key.txt' with no extra spaces or newlines.
 
-Configuration Changes: Set the REDMINE_URL and API_KEY values as needed. API Key can be found under My Account
+Configuration Changes: Must save your API key to a file named 'api-key.txt'! API Key can be found under My Account
 in redmine. Wiki page to send updates to is specified at the end of main() in redmine.wiki_page.update(). The # of days
 worth of update notes to check for can be altered in get_latest_updates()
 
@@ -21,8 +22,11 @@ from redminelib import Redmine
 from redminelib.exceptions import AuthError
 import datetime
 
-API_KEY = 'asdf'
 REDMINE_URL = 'https://redmine.dataone.org'
+f = open ('api-key.txt', 'r')
+API_KEY = f.readlines()
+#API_KEY = 'your api key from redmine'
+
 
 redmine = Redmine(REDMINE_URL, key=API_KEY)
 report_str = u''
@@ -33,7 +37,8 @@ def main():
   status_list = [{'id': 12, 'name': 'PLANNING'},
                  {'id': 7, 'name': 'TESTING'},
                  {'id': 9, 'name': 'OPERATIONAL'}]
-
+  input('Pres enter to begin generating report of recent redmine updates.')
+  print('Starting! Please be patient, this could take a few minutes...\n\n')
   for status in status_list:
     # project_id 9 is 'Member Nodes', tracker_id 9 is 'MNDeployment'
     issues = redmine.issue.filter(project_id='20', tracker_id='9', status_id=status['id'])
@@ -55,10 +60,12 @@ def main():
     redmine.wiki_page.update('Latest_updates',
                              project_id=20,
                              text=report_str)
+    input('Done! Report has been updated on the wiki page. Press Enter to close program.')
   except AuthError:
-    print 'Authorization error. Check for valid api key.'
-  except Exception, e:
-    print e
+    print('Authorization error. Check for valid api key and try again.')
+    input('Press Enter to close program.')
+  except Exception as e:
+    print(e)
 
 def get_ticket(id, updates_str):
   parent_issue = redmine.issue.get(id, include='children,journals')  # get the full issue details
