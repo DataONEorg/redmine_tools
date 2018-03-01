@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<issues>
+
+    <story name="Discovery">
+        <subject>Discovery</subject>
+        <desc>Discovery is about establishing contact and building a relationship with a potential new member node. In this phase, it is determined if DataONE and the repository are a good fit for one another and if the repository generally meets the requirements of DataONE member nodes. Broad discussions of deployment options may be reviewed as well.
+This story is complete when a determination is made to either proceed with planning a new deployment, or that joining DataONE is not an option for the repository at this time.
+        </desc>
+        <tasks>
+            <task>
+                <subject>Initial Communications</subject>
+                <desc>* Schedule introductory meeting.
+* Provide potential MN with documentation:
+ * What is DataONE? (https://www.dataone.org/what-dataone)
+ * Benefits of collaborating with DataONE as a Member Node (https://www.dataone.org/benefits-becoming-member-node)
+ * General process of becoming a Member Node (https://www.dataone.org/member-node- deployment-process)
+ * Responsibilities of a Member Node--Partnership Guidelines (http://www.dataone.org/sites/all/documents/DataONE_MN_Partner_Guidelines_20131024.pdf)
+ * MN Description Worksheet: (https://drive.google.com/file/d/1pTstSQ2ziDEI-7B1LacU0ZyrsZzL4G3x/view?usp=sharing)
+ * MN Deployment Routes (https://www.dataone.org/member-node-deployment-routes)
+ * Member Node APIs (https://releases.dataone.org/online/api-documentation-v2.0/apis/MN_APIs.html)
+
+{checklist}
+
+* Upload completed MN Description Worksheet
+
+                </desc>
+            </task>
+
+            <task>
+                <subject>Feasibility Assessment</subject>
+                <desc>Initial determination of operational and technical feasibility. Addresses:
+
+***Operational Feasibility:***
+
+* Repository meets sustainability expectations.
+
+***Technical Feasibility:***
+
+* What data will be exposed?
+* Content mutability.
+* Software needs:
+ * DataONE software stack or implement new web service in existing applications (custom stack)?
+ * Full repository or Slender Node?
+ * metadata only or science data + replication?
+ * Repository's in-house preferences? (Java? Python?)
+* Consistency of metadata quality.
+* Level of functionality (tier).
+
+### Approval = Change Status > Planning
+
+                </desc>
+            </task>
+        </tasks>
+    </story>
+    <story name="Planning">
+        <subject>Planning</subject>
+        <desc>The repository and DataONE have agreed to proceed with deployment as a member node. Decisions will be made as to how to proceed with development. Node operators will receive training.</desc>
+        <tasks>
+            <task>
+                <subject>MN Communications</subject>
+                <desc>* Complete MNDeployment ticket properties fields
+* Upload MN logo to GitHub (https://github.com/DataONEorg/member-node-info/tree/master/production/graphics) &amp; add link to “Logo URL”
+* Deliver partnership guidelines (link)
+* Completed MN Description document attached to ticket/uploaded to Google Drive (https://drive.google.com/open?id=0B18azCDdsZfyUlI1WTBMMUlCckk)
+* Logos attached to issue/uploaded to GitHub (https://github.com/DataONEorg/member-node-info/tree/master/production/graphics)
+* MN POCs added to mnforum Google Group
+* Send MN communication channels to MN (https://redmine.dataone.org/projects/mns/wiki/MN_communication_channels)
+* Business requirements confirmed:
+ * legal?
+ * licensing?
+ * data sharing restrictions / privacy concerns?
+
+                </desc>
+            </task>
+            <task>
+                <subject>Technical Requirements</subject>
+                <desc>
+* Confirm chosen deployment path.
+* Communicate knowledge of technical requirements for selected deployment. These can include:
+ * SSL certificate.
+ * FQDN.
+ * Apache web server with Python 2.7 or Java (depending on stack).
+* Confirm metadata format. Communicate expectations for metadata quality.
+* Specify in advance whether a separate test installation will be maintained in parallel with production. This is important for planning the deployment. A separate test will need distinct subdomain and SSL cert if not using wildcard.
+                </desc>
+            </task>
+            <task>
+                <subject>Training &amp; Education</subject>
+                <desc>* Live training session or video links provided for DataONE systems and architecture.
+* Synchronization training video (http://vimeo.com/200407194 / https://www.dataone.org/sites/default/files/20160901_mn-synchronization.pdf)
+* Share links to appropriate technical resources as needed. These might include:
+ * MN API (http://jenkins-1.dataone.org/jenkins/job/API_Documentation_trunk/ws/api-documentation/build/html/apis/MN_APIs.html)
+ * MetaCat installation instructions (https://knb.ecoinformatics.org/knb/docs/install.html#installing-on-linux)
+ * GMN installation instructions (http://dataone-python.readthedocs.io/en/latest/gmn/index.html)
+ * Python Library implementation of APIs (http://dataone-python.readthedocs.io/en/latest/common/index.html)
+                </desc>
+            </task>
+        </tasks>
+    </story>
+    <story name="Testing">
+        <subject>Testing &amp; Development</subject>
+        <desc>Install or develop a functional member node to be registered to a non-production environment. </desc>
+        <tasks>
+            <task>
+                <subject>Metadata Validation</subject>
+                <desc>Receive and validate sample metadata records from member node.</desc>
+            </task>
+            <task>
+                <subject>Develop or Implement MN Software</subject>
+                <desc>
+* Change node's primary MNDeployment ticket status to Testing.
+
+* Identity Management:
+ * Confirm what nodeID will be used.
+ * Register NCEAS LDAP (https://identity.nceas.ucsb.edu/) because cert download auth is maintained by separate system.
+ * Use Use cilogon to generate a DataONE LDAP account by logging into DataONE test env. (Sign-in link at https://search-stage.test.dataone.org)
+
+
+* DataONE Certificate:
+ * Request in #CI for a sandbox or stage D1 certificate generated available to NCEAS uid.
+ * Cert/key downloaded by node operator.
+
+***For a custom implementation of DataONE APIs as new service:***
+
+* MN implements full scope of Member Node APIs.
+* API methods systematically verified by D1 tech lead.
+* Passes web tester checks (http://mncheck.test.dataone.org:8080)
+
+***For a DataONE Software Stack***
+
+* Install software, SSL cert, and DataONE cert per installation instructions.
+* If using LE cert, schedule cron for renewal.
+* Configure software as appropriate (baseURL, Node Contact Subject, replication, etc).
+
+***For a SlenderNode:***
+
+* Develop adapter.
+* Fully test movement of data from source system to target MN software.
+* Install on MN web server and schedule cron job. Verify cron is running as expected.
+
+***For both:***
+* Verify system metadata of test records. Ensure correct node URI value in auth/orig MN.
+* Verify node description document. Ensure that Contact Subject is set to the DataONE LDAP identity string.
+
+                </desc>
+            </task>
+            <task>
+                <subject>Test Registration</subject>
+                <desc>Custom nodes will start off by first registering in Sandbox. Nodes using an existing MN software will register in Stage.
+
+* Node contact subject approved by D1 admin in DataONE LDAP.
+* Node software configuration - synchronization enabled if applicable.
+* Node registration document generated and submitted to Sandbox or Stage CN.
+* D1 Admin approves node registration on the Sandbox or Stage CN server.
+* Monitor and verify synchronization, indexing, search behavior.
+* MN approves display of information in test search interface (https://search-sandbox.test.dataone.org/#data or https://search-stage.test.dataone.org/#data)
+
+A note for custom implemented DataONE services: It's expected that development and testing will be more iterative. When satisfied with results in sandbox, repeat the process by changing target to cn-stage.
+
+                </desc>
+            </task>
+            <task>
+                <subject>Display as Upcoming</subject>
+                <desc>
+* Ensure MN logo in github (https://github.com/DataONEorg/member-node-info)
+* Create new entry for the MN in the Upcoming Nodes Document. (https://github.com/DataONEorg/member-node-info/tree/master/production/upcoming)
+* Confirm MN Dashboard detected change in github and displays the new entry as "upcoming". (https://www.dataone.org/current-member-nodes)
+                </desc>
+            </task>
+        </tasks>
+    </story>
+    <story name="Production">
+        <subject>Move to Production</subject>
+        <desc> </desc>
+        <tasks>
+            <task>
+                <subject>Implement in Production</subject>
+                <desc> Ensure that the production version of the MN is ready. This is either a new instance with production content, or the test instance that has been completely cleaned (content and logs).
+                    
+* ! Disable Sync if re-using test software !
+* Software Configurations / Node Document / System Metadata checks:
+ * URI in node software config shows production version
+ * If applicable, adapter metadata reflects production URI too.
+ * System metadata reflects production URI
+ * Target CN is production hostname.
+* Register Contact Subject identity in production version of DataONE LDAP w/ Sign in Link at https://search.dataone.org
+* D1 admin approves contact subject in production LDAP.
+* Request production certificates with prod version of URI and download w/ NCEAS uid. Install.
+                </desc>
+            </task>
+            <task>
+                <subject>Register in Production</subject>
+                <desc>
+* Switch node configuration to enable synchronization.
+* Submit node registration to production CN.
+* D1 admin approves node registration on CN production server.
+* Confirm node is synchronizing as expected.
+* D1 edits custom CN_ properties, as described at https://github.com/DataONEorg/member-node-info/blob/master/custom_properties.md
+                </desc>
+            </task>
+            <task>
+                <subject>Mutual Acceptance</subject>
+                <desc>Verify that the content is synchronizing correctly and the search results appear as expected. Member node approves</desc>
+            </task>
+            <task>
+                <subject>Formal Announcement</subject>
+                <desc>
+* Verify MN appears as current in MN Dashboard and Search UI (https://www.dataone.org/current-member-nodes)
+* Verify DataONE logo / link appears on  MN page. (Repeat every year.)
+* Prepare and make news announcement - Coordinate with MN for any announcements they wish to do from their perspective.
+* Change the node's main MNDeployment ticket to Operational status.
+
+{checklist}
+
+* Draft news item for public release + MN approval of PR. (https://drive.google.com/drive/folders/0B18azCDdsZfyYlFqTlhSTWFLYUU?usp=sharing)
+* MN social media handles
+                </desc>
+            </task>
+        </tasks>
+    </story>
+</issues>
+
