@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <issues>
 
-    <story name="Discovery & Planning">
-        <subject>Discovery & Planning</subject>
+    <story name="Discovery &amp; Planning">
+        <subject>Discovery &amp; Planning</subject>
         <desc>Discovery: establish contact and build relationship with a potential new member node. Determine if DataONE and the repository are a good fit for one another and if the repository generally meets the requirements of DataONE member nodes. 
             Planning: If the repository and DataONE have agreed to proceed with deployment as a member node. Decisions will be made as to how to proceed with development. Node operators will receive training. 
             This story is complete when a determination is made to either proceed with planning a new deployment, or that joining DataONE is not an option for the repository at this time.
