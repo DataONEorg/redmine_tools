@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <issues>
 
-    <story name="Discovery">
-        <subject>Discovery</subject>
-        <desc>Discovery is about establishing contact and building a relationship with a potential new member node. In this phase, it is determined if DataONE and the repository are a good fit for one another and if the repository generally meets the requirements of DataONE member nodes. Broad discussions of deployment options may be reviewed as well.
-This story is complete when a determination is made to either proceed with planning a new deployment, or that joining DataONE is not an option for the repository at this time.
+    <story name="Discovery & Planning">
+        <subject>Discovery & Planning</subject>
+        <desc>Discovery: establish contact and build relationship with a potential new member node. Determine if DataONE and the repository are a good fit for one another and if the repository generally meets the requirements of DataONE member nodes. 
+            Planning: If the repository and DataONE have agreed to proceed with deployment as a member node. Decisions will be made as to how to proceed with development. Node operators will receive training. 
+            This story is complete when a determination is made to either proceed with planning a new deployment, or that joining DataONE is not an option for the repository at this time.
+  ***Record initial communication here***
         </desc>
         <tasks>
             <task>
                 <subject>Initial Communications</subject>
-                <desc>* Schedule introductory meeting.
-* Provide potential MN with documentation:
+                <desc>* Schedule introductory meeting.                 
  * What is DataONE? (https://www.dataone.org/what-dataone)
  * Benefits of collaborating with DataONE as a Member Node (https://www.dataone.org/benefits-becoming-member-node)
  * General process of becoming a Member Node (https://www.dataone.org/member-node- deployment-process)
@@ -19,9 +20,20 @@ This story is complete when a determination is made to either proceed with plann
  * MN Deployment Routes (https://www.dataone.org/member-node-deployment-routes)
  * Member Node APIs (https://releases.dataone.org/online/api-documentation-v2.0/apis/MN_APIs.html)
 
+* Business requirements confirmed:
+ * legal?
+ * licensing?
+ * data sharing restrictions / privacy concerns?
+                    
+                    
 {checklist}
 
 * Upload completed MN Description Worksheet
+* Upload MN logo to GitHub (https://github.com/DataONEorg/member-node-info/tree/master/production/graphics) &amp; add link to “Logo URL”
+* Complete MNDeployment ticket properties fields
+* MN POCs added to mnforum Google Group
+* Send MN communication channels to MN (https://redmine.dataone.org/projects/mns/wiki/MN_communication_channels)
+                  
 
                 </desc>
             </task>
@@ -50,29 +62,7 @@ This story is complete when a determination is made to either proceed with plann
 
                 </desc>
             </task>
-        </tasks>
-    </story>
-    <story name="Planning">
-        <subject>Planning</subject>
-        <desc>The repository and DataONE have agreed to proceed with deployment as a member node. Decisions will be made as to how to proceed with development. Node operators will receive training.</desc>
-        <tasks>
-            <task>
-                <subject>MN Communications</subject>
-                <desc>* Complete MNDeployment ticket properties fields
-* Upload MN logo to GitHub (https://github.com/DataONEorg/member-node-info/tree/master/production/graphics) &amp; add link to “Logo URL”
-* Deliver partnership guidelines (link)
-* Completed MN Description document attached to ticket/uploaded to Google Drive (https://drive.google.com/open?id=0B18azCDdsZfyUlI1WTBMMUlCckk)
-* Logos attached to issue/uploaded to GitHub (https://github.com/DataONEorg/member-node-info/tree/master/production/graphics)
-* MN POCs added to mnforum Google Group
-* Send MN communication channels to MN (https://redmine.dataone.org/projects/mns/wiki/MN_communication_channels)
-* Business requirements confirmed:
- * legal?
- * licensing?
- * data sharing restrictions / privacy concerns?
-
-                </desc>
-            </task>
-            <task>
+                   <task>
                 <subject>Technical Requirements</subject>
                 <desc>
 * Confirm chosen deployment path.
